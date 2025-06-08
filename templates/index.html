@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PWEB1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">PWEB1 - Participantes</h1>
+        <ul class="space-y-6 max-w-xl mx-auto">
+            {% for pessoa in pessoas %}
+            <li class="flex items-center bg-white shadow rounded-lg p-4 space-x-4">
+                {% if pessoa.avatar %}
+                    <img src="{{ pessoa.avatar }}" alt="Avatar" class="w-14 h-14 rounded-full border border-gray-200 object-cover" />
+                {% else %}
+                    <div class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-gray-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                {% endif %}
+                <div>
+                    <div class="font-semibold text-lg text-gray-900">
+                        {{ pessoa.name.full or pessoa.name.compact }}
+                    </div>
+                    <div class="mt-1 space-y-1 text-gray-700 text-sm">
+                        {% if pessoa.addresses and pessoa.addresses.github %}
+                            <div class="flex items-center space-x-1">
+                                <!-- GitHub Icon -->
+                                <i class="fab fa-github w-4 h-4 text-gray-500 mr-1"></i>
+                                <span class="font-medium text-gray-600">GitHub:</span>
+                                <a href="{{ pessoa.addresses.github }}" class="text-blue-600 hover:underline ml-1" target="_blank" rel="noopener">
+                                    {{ pessoa.addresses.github }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if pessoa.addresses and pessoa.addresses.email %}
+                            <div class="flex items-center space-x-1">
+                                <!-- Email Icon -->
+                                <i class="fas fa-envelope w-4 h-4 text-gray-500 mr-1"></i>
+                                <span class="font-medium text-gray-600">Email:</span>
+                                <span>
+                                    <a class="text-blue-600 hover:underline ml-1" target="_blank" href="mailto:{{ pessoa.addresses.email }}">{{ pessoa.addresses.email }}</a>
+                                </span>
+                            </div>
+                        {% endif %}
+                        {% if pessoa.addresses and pessoa.addresses.linkedin %}
+                            <div class="flex items-center space-x-1">
+                                <!-- LinkedIn Icon -->
+                                <i class="fab fa-linkedin w-4 h-4 text-gray-500 mr-1"></i>
+                                <span class="font-medium text-gray-600">LinkedIn:</span>
+                                <a href="{{ pessoa.addresses.linkedin }}" class="text-blue-600 hover:underline ml-1" target="_blank" rel="noopener">
+                                    {{ pessoa.addresses.linkedin }}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
